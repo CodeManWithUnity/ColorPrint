@@ -100,9 +100,6 @@ public class UIManager
             }
         }
     }
-
-
-
     private GameObject GetSingleObject(UIType uIType)
     {
         if (dict_uiObject.ContainsKey(uIType.Name))

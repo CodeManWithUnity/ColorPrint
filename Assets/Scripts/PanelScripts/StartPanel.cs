@@ -62,6 +62,9 @@ public class StartPanel : BasePanel
     public void OnColorFormulaClick() 
     {
         Debug.Log("涂料库管理按钮点击");
+        GameRoot.GetInstance().UIManager_Root.PopAll();
+        PaintLibraryPanel paintLibraryPanel = new PaintLibraryPanel();
+        GameRoot.GetInstance().UIManager_Root.Push(paintLibraryPanel);
     }
     public void OnColorMaterialSelClick()
     {

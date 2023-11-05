@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class GameRoot : MonoBehaviour
@@ -25,6 +26,12 @@ public class GameRoot : MonoBehaviour
 
     public UIManager UIManager_Root { get => UIManager; }
 
+    //数据管理者
+    private DataManger DataManger;
+    public DataManger DataManger_Root { get => DataManger; }
+
+
+
     private SceneControl SceneControl;
     public SceneControl SceneControl_Root { get => SceneControl; }
 
@@ -40,6 +47,7 @@ public class GameRoot : MonoBehaviour
         }
         UIManager = new UIManager();
         SceneControl = new SceneControl();
+        DataManger = new DataManger();
     }
     private void Start()
     {
@@ -52,5 +60,6 @@ public class GameRoot : MonoBehaviour
         StartPanel startPanel = new StartPanel();
         UIManager_Root.Push(startPanel);
         #endregion
+        DataManger.Init();
     }
 }
