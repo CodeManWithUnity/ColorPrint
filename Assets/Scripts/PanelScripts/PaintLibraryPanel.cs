@@ -11,8 +11,13 @@ public class PaintLibraryPanel : BasePanel
     private static string name = "PaintLibraryPanel";
     private static string path = "Panel/PaintLibraryPanel";
     public static readonly UIType uIType = new UIType(path, name);
+    //返回按钮
     private Button ReturnBtn;
+    //关闭按钮
     private Button CloseBtn;
+
+
+
 
     public PaintLibraryPanel() : base(uIType)
     {

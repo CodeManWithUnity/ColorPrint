@@ -58,7 +58,7 @@ namespace ColorPickerUtil
             Initialize();
             int width = (int)Mathf.Clamp(rectTransform.rect.width * 0.25f, 0.0f, 512.0f);
             int height = (int)Mathf.Clamp(rectTransform.rect.height * 0.25f, 0.0f, 512.0f);
-            if (texture.width != width || texture.height != height) { texture.width = width; texture.height = height; }
+            //if (texture.width != width || texture.height != height) { texture.width = width; texture.height = height; }
         }
 
         public void OnDrag(PointerEventData eventData)

@@ -54,7 +54,7 @@ namespace ColorPickerUtil
             base.OnEnable();
             Initialize();
             int height = (int)Mathf.Clamp(rectTransform.rect.height * 0.25f, 0.0f, 512.0f);
-            if (texture.height != height) texture.height = height;
+            //if (texture.height != height) texture.height = height;
         }
 
         public void OnDrag(PointerEventData eventData)
