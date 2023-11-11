@@ -40,8 +40,15 @@ public class DataManger
 
     public void AddColorData(ColorData colorData) 
     {
-        int index = m_DicColorData.Keys.Count;
-        m_DicColorData.Add(index + 1,colorData);
+        if (!m_DicColorData.ContainsValue(colorData))
+        {
+            int index = m_DicColorData.Keys.Count;
+            m_DicColorData.Add(index + 1, colorData);
+        }
+        else 
+        {
+            Debug.LogError("Ìí¼ÓÑÕÉ«Ê§°Ü");
+        }
     }
     public void RemoveColorData(int id) 
     {

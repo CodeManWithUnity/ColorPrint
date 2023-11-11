@@ -21,6 +21,7 @@ public class GameRoot : MonoBehaviour
         }
         return instance;
     }
+    public GameObject Condiment;
 
     private UIManager UIManager;
 
