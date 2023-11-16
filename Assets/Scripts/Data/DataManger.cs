@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DataManger
@@ -53,6 +54,7 @@ public class DataManger
     public void RemoveColorData(int id) 
     {
         m_DicColorData.Remove(id);
+        //剩下的数据id重新排序
     }
 
     public void EditColorData(int id,ColorData colorData) 

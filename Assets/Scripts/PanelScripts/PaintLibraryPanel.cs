@@ -41,6 +41,8 @@ public class PaintLibraryPanel : BasePanel
     private Transform PaintDesc;
     //添加混合颜色
     private Button AddBlendColorBtn;
+    //删除颜色库的按钮
+    private Button ItemDeleteBtn;
 
     private Dictionary<int, ColorData> m_ColorDataDic = new Dictionary<int, ColorData>();
     //PaintLibrary
@@ -117,15 +119,16 @@ public class PaintLibraryPanel : BasePanel
         string RGB = "#" + ColorUtility.ToHtmlStringRGB(_color);
         AddColorToManger(RGB);
     }
-    private void OnBlendColorBtnClick() 
+    private void OnBlendColorBtnClick()
     {
         Color color1 = Color1BtnImage.color;
         Color color2 = Color2BtnImage.color;
         Color blendColor = ColorBlend(color1, color2);
         BlendColor.color = blendColor;
     }
+
     //颜色混合
-    private Color ColorBlend(Color color1,Color color2) 
+    private Color ColorBlend(Color color1, Color color2)
     {
         float r = 0;
         float g = 0;
@@ -140,7 +143,7 @@ public class PaintLibraryPanel : BasePanel
     }
 
     //添加颜色到DataManger
-    private void AddColorToManger(string rgb) 
+    private void AddColorToManger(string rgb)
     {
         string name = "新建颜色";
         string ChengFen = "无";
@@ -160,13 +163,13 @@ public class PaintLibraryPanel : BasePanel
             PaintLibrary.gameObject.SetActive(true);
             RefreshPaintLibrary();
         }
-        else 
+        else
         {
-            PaintLibrary.gameObject.SetActive(false);   
+            PaintLibrary.gameObject.SetActive(false);
         }
     }
 
-    private void RefreshPaintLibrary() 
+    private void RefreshPaintLibrary()
     {
         //刷新颜色库
 
@@ -176,31 +179,35 @@ public class PaintLibraryPanel : BasePanel
         for (int i = 0; i < ChildCount; i++)
         {
             var child = ColorContent.GetChild(i);
-            if (i < m_ColorDataDic.Count) 
+            child.gameObject.name = "item" + (i + 1).ToString();
+            if (i < m_ColorDataDic.Count)
             {
                 child.gameObject.SetActive(true);
-                SetItem(i + 1, child, m_ColorDataDic[i + 1]);
+                ColorData colorData = m_ColorDataDic.ElementAt(i).Value;
+                int id = m_ColorDataDic.ElementAt(i).Key;
+                SetItem(id, child, colorData);
             }
-            else 
+            else
             {
                 child.gameObject.SetActive(false);
             }
         }
     }
-    private void SetItem(int id,Transform transform,ColorData colorData) 
+    private void SetItem(int id, Transform transform, ColorData colorData)
     {
         Transform ColorName = transform.GetChild(0);
         Transform ColorValue = transform.GetChild(1);
         Button AttrBtn = transform.GetChild(2).GetComponent<Button>();
-        if (ColorName != null) 
+        Button ItemDeleteBtn = transform.GetChild(3).GetComponent<Button>();
+        if (ColorName != null)
         {
             ColorName.GetComponent<Text>().text = colorData.Name;
         }
-        if(ColorValue != null) 
+        if (ColorValue != null)
         {
             Color _newColor;
             ColorUtility.TryParseHtmlString(colorData.RGB, out _newColor);
-            ColorValue.GetComponent<Image>().color = _newColor; 
+            ColorValue.GetComponent<Image>().color = _newColor;
         }
         AttrBtn.onClick.AddListener(() =>
         {
@@ -208,13 +215,23 @@ public class PaintLibraryPanel : BasePanel
             {
                 PaintDesc.gameObject.SetActive(false);
             }
-            else 
+            else
             {
                 PaintDesc.gameObject.SetActive(true);
-                SetDescValue(id,colorData);
+                SetDescValue(id, colorData);
             }
         });
+        ItemDeleteBtn.onClick.AddListener(() =>
+        {
+            DeleteItemData(id);
+        });
     }
+    private void DeleteItemData(int id) 
+    {
+        GameRoot.GetInstance().DataManger_Root.RemoveColorData(id);
+        RefreshPaintLibrary();
+    }
+
     private void  SetDescValue(int id, ColorData colorData) 
     {
         //设置属性详情
