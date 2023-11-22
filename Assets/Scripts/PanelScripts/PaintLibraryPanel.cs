@@ -44,6 +44,9 @@ public class PaintLibraryPanel : BasePanel
     //É¾³ýÑÕÉ«¿âµÄ°´Å¥
     private Button ItemDeleteBtn;
 
+    //
+    private Transform ColorEdit;
+
     private Dictionary<int, ColorData> m_ColorDataDic = new Dictionary<int, ColorData>();
     //PaintLibrary
     private Transform PaintLibrary;
@@ -93,6 +96,9 @@ public class PaintLibraryPanel : BasePanel
         SystemColorBtn.onClick.AddListener(OnSystemColorBtnClick);
         AddBlendColorBtn = UIMethods.GetInstance().GetOrAddSingleComponentInChild<Button>(ActiveObj, "AddBlendColorBtn");
         AddBlendColorBtn.onClick.AddListener(OnAddBlendColorBtnClick);
+        ColorEdit = UIMethods.GetInstance().GetOrAddSingleComponentInChild<Transform>(ActiveObj, "ColorEdit");
+        ColorEdit.gameObject.SetActive(false);
+
         PaintLibrary.gameObject.SetActive(false);
         Panel_ColorPicker.gameObject.SetActive(false);
         PaintDesc.gameObject.SetActive(false);
