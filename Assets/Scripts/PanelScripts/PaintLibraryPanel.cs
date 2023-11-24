@@ -13,8 +13,6 @@ public class PaintLibraryPanel : BasePanel
     private static string name = "PaintLibraryPanel";
     private static string path = "Panel/PaintLibraryPanel";
     public static readonly UIType uIType = new UIType(path, name);
-    //返回按钮
-    private Button ReturnBtn;
     //关闭按钮
     private Button CloseBtn;
     //PaintLibrary关闭按钮
@@ -73,8 +71,6 @@ public class PaintLibraryPanel : BasePanel
     public override void OnStart()
     {
         base.OnStart();
-        ReturnBtn = UIMethods.GetInstance().GetOrAddSingleComponentInChild<Button>(ActiveObj, "ReturnBtn");
-        ReturnBtn.onClick.AddListener(OnReturnBtnClick);
         CloseBtn = UIMethods.GetInstance().GetOrAddSingleComponentInChild<Button>(ActiveObj, "CloseBtn");
         CloseBtn.onClick.AddListener(OnCloseBtnClick);
         PaintClose = UIMethods.GetInstance().GetOrAddSingleComponentInChild<Button>(ActiveObj, "PaintClose");
@@ -283,12 +279,5 @@ public class PaintLibraryPanel : BasePanel
         Debug.Log("关闭");
 #endif
         Application.Quit();
-    }
-
-    private void OnReturnBtnClick()
-    {
-        GameRoot.GetInstance().UIManager_Root.PopAll();
-        StartPanel startPanel = new StartPanel();
-        GameRoot.GetInstance().UIManager_Root.Push(startPanel);
     }
 }

@@ -11,7 +11,6 @@ public class ShowColorPanel : BasePanel
     private static string name = "ShowColorPanel";
     private static string path = "Panel/ShowColorPanel";
     public static readonly UIType uIType = new UIType(path, name);
-    private Button ReturnBtn;
     private Button CloseBtn;
     //系统颜色库按钮
     private Button SystemColorBtn;
@@ -43,8 +42,6 @@ public class ShowColorPanel : BasePanel
     public override void OnStart()
     {
         base.OnStart();
-        ReturnBtn = UIMethods.GetInstance().GetOrAddSingleComponentInChild<Button>(ActiveObj, "ReturnBtn");
-        ReturnBtn.onClick.AddListener(OnReturnBtnClick);
         CloseBtn = UIMethods.GetInstance().GetOrAddSingleComponentInChild<Button>(ActiveObj, "CloseBtn");
         CloseBtn.onClick.AddListener(OnCloseBtnClick);
         SystemColorBtn = UIMethods.GetInstance().GetOrAddSingleComponentInChild<Button>(ActiveObj, "SystemColorBtn");
@@ -123,12 +120,5 @@ public class ShowColorPanel : BasePanel
         Debug.Log("关闭");
 #endif
         Application.Quit();
-    }
-
-    private void OnReturnBtnClick()
-    {
-        GameRoot.GetInstance().UIManager_Root.PopAll();
-        StartPanel startPanel = new StartPanel();
-        GameRoot.GetInstance().UIManager_Root.Push(startPanel);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BasePanel
 {
@@ -30,5 +31,23 @@ public class BasePanel
     public virtual void OnDestory()
     {
         UIMethods.GetInstance().GetorAddComponent<CanvasGroup>(ActiveObj).interactable = false;
+    }
+    public virtual void ToggleChange<T>(Button LastBtn, Button NowBtn, T NowPanel) where T : BasePanel
+    {
+
+        if (LastBtn == NowBtn)
+        {
+            Debug.Log("更改 ");
+            return;
+        }
+        NowBtn.transform.GetChild(0).GetComponent<Text>().color = Color.yellow;
+        if (LastBtn != null && GameRoot.GetInstance().UIManager_Root.stack_ui.Peek().uiType.Name != "StartPanel")
+        {
+            LastBtn.transform.GetChild(0).GetComponent<Text>().color = Color.white;
+            Debug.Log("执行了");
+            GameRoot.GetInstance().UIManager_Root.PopSingle();
+        }
+
+        GameRoot.GetInstance().UIManager_Root.Push(NowPanel);
     }
 }

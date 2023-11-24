@@ -10,6 +10,9 @@ public class StartPanel : BasePanel
     private static string name = "StartPanel";
     private static string path = "Panel/StartPanel";
     public static readonly UIType uIType = new UIType(path, name);
+
+    private Button LastBtn;
+
     //看色与展色按钮
     private Button ColorShowBtn;
     //涂料库管理按钮
@@ -31,7 +34,6 @@ public class StartPanel : BasePanel
     public override void OnDisable()
     {
         Debug.Log("StartPanel is back");
-        base.OnDisable();
     }
     public override void OnEnable()
     {
@@ -51,20 +53,31 @@ public class StartPanel : BasePanel
         CloseBtn = UIMethods.GetInstance().GetOrAddSingleComponentInChild<Button>(ActiveObj, "CloseBtn");
         CloseBtn.onClick.AddListener(OnCloseClick);
 
+        //ShowColorPanel showColorPanel = new ShowColorPanel();
+        //base.ToggleChange(LastBtn, ColorShowBtn, showColorPanel);
+        //LastBtn = ColorShowBtn;
+
+        Debug.Log($"当前按钮的属性：{ColorShowBtn.isActiveAndEnabled}");
+
     }       
     public void OnColorShowClick() 
     {
-        Debug.Log("展色按钮点击");
-        GameRoot.GetInstance().UIManager_Root.PopAll();
+
+        if (LastBtn == ColorShowBtn) return;
+        Debug.Log("三属性仿真按钮");
         ShowColorPanel showColorPanel = new ShowColorPanel();
-        GameRoot.GetInstance().UIManager_Root.Push(showColorPanel);
+        base.ToggleChange(LastBtn, ColorShowBtn, showColorPanel);
+        LastBtn = ColorShowBtn;
+        Debug.Log($"当前按钮的属性：{ColorShowBtn.isActiveAndEnabled}");
     }
     public void OnColorFormulaClick() 
     {
-        Debug.Log("涂料库管理按钮点击");
-        GameRoot.GetInstance().UIManager_Root.PopAll();
+        if (LastBtn == ColorFormulaBtn) return;
+        Debug.Log("三属性仿真按钮");
         PaintLibraryPanel paintLibraryPanel = new PaintLibraryPanel();
-        GameRoot.GetInstance().UIManager_Root.Push(paintLibraryPanel);
+        base.ToggleChange(LastBtn, ColorFormulaBtn, paintLibraryPanel);
+        LastBtn = ColorFormulaBtn;
+
     }
     public void OnColorMaterialSelClick()
     {
